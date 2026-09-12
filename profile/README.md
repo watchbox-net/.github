@@ -11,19 +11,21 @@
 
 ## 📜 주요 기능
 
-| 기능         | 상세                                                              |
-| ---------- | --------------------------------------------------------------- |
-| 홈 응답 개선    | TMDB Redis read-through 캐시, HTTP/2 커넥션 풀, 기동·주기 캐시 워밍           |
-| 알림 유실 방지   | 트랜잭션 아웃박스 + Kafka 발행·소비, 재시도·멱등 처리, 로컬/Kafka 런타임 스위치            |
-| 실시간 알림     | SSE, 커밋 후 비동기 fan-out, 하트비트·재연결·catch-up                        |
-| 전달 계측      | SSE·메일 채널별 성공/실패/스킵 카운터, 실패 주입으로 도입 전후 도착률 비교                   |
-| 무한스크롤      | QueryDSL 커서(keyset) 페이지네이션, 복합키 Base64 커서, 혼합 정렬                |
-| N+1 제거     | 다형(movie/tv/person) fetch join, IN 배치, 2-phase 집계 분리            |
-| 리프레시 토큰 회전 | Redis 세션, memberId 락(SETNX+Lua CAS), grace window, 재사용 감지       |
-| 관측         | OpenTelemetry OTLP, Micrometer 커스텀 지표, Grafana·Tempo, Pyroscope |
+| 기능         | 상세                                                                                   |
+| ---------- | ------------------------------------------------------------------------------------ |
+| 홈 응답 개선    | TMDB Redis read-through 캐시, HTTP/2 커넥션 풀, 기동·주기 캐시 워밍                                |
+| 알림 유실 방지   | 트랜잭션 아웃박스로 dual write 제거, 폴링 릴레이 + 커밋 트리거, 백오프 재시도                                   |
+| 채널 격리      | Kafka 컨슈머 그룹 분리로 SSE·메일 오프셋 독립, 채널별 전달 이력으로 재시도 멱등, DLQ 는 poison pill 전용             |
+| 실시간 알림     | SSE 스트림, 하트비트·자동 재연결·미수신 catch-up, 로컬 큐/Kafka 전송 런타임 전환                              |
+| 전달 계측      | SSE·메일 채널별 성공/실패/스킵 카운터, 실패 주입으로 도입 전후 도착률 비교                                        |
+| 분산 추적      | outbox 행에 traceparent 를 실어 스레드·시간 경계 통과, 브라우저부터 컨슈머까지 한 trace                        |
+| 무한스크롤      | QueryDSL 커서(keyset) 페이지네이션, 복합키 Base64 커서, 혼합 정렬                                     |
+| N+1 제거     | 다형(movie/tv/person) fetch join, IN 배치, 2-phase 집계 분리                                 |
+| 리프레시 토큰 회전 | Redis 세션, memberId 락(SETNX+Lua CAS), grace window, 재사용 감지                            |
+| 관측 인프라     | OpenTelemetry OTLP, Micrometer 커스텀 지표, Grafana·Tempo, Pyroscope, Kafka(KRaft) 자체 호스팅 |
 
 ## 🧭 IA (Information Architecture)
-<img width="1656" height="881" alt="image" src="https://github.com/user-attachments/assets/312fa9bc-c8a0-4ad7-baea-dcd769c9658b" />
+<img width="1841" height="965" alt="watchbox_information_architecture" src="https://github.com/user-attachments/assets/5758caf0-0c3e-43b8-981d-091a8aab9dc7" />
 
 ## ## ⚙️ 기술 스택
 ### Frontend
@@ -82,8 +84,9 @@
 | Exporter | mysqld-exporter, redis-exporter |
 
 ## 🏛️ System Architecture
-<img width="1751" height="943" alt="image" src="https://github.com/user-attachments/assets/4ed7b198-7298-4cac-a6a2-0fbc3f94b6df" />
+<img width="1429" height="756" alt="watchbox_system_architecture" src="https://github.com/user-attachments/assets/b155507f-b645-43ec-9da0-ec237a904d55" />
 
 ## 📊 ERD
-<img width="2238" height="2040" alt="image" src="https://github.com/user-attachments/assets/d89d1368-1845-4de3-b575-081cdb4844ab" />
+<img width="2320" height="1910" alt="watchbox_erd" src="https://github.com/user-attachments/assets/3be28627-ebd0-421b-96e4-54d7a298d5e6" />
+
 
