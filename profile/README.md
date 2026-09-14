@@ -8,6 +8,8 @@
 | 기간     | 26년 01월 ~ 지속 |
 | 인원     | 개인 |
 | 서비스 링크 | [watch-box.net](https://watch-box.net) |
+| 백엔드 레포 | [watchbox-be](https://github.com/watchbox-net/watchbox-be) |
+| 프론트엔드 레포 | [watchbox-fe](https://github.com/watchbox-net/watchbox-fe) |
 
 ## 📜 주요 기능
 
